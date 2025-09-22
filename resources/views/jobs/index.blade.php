@@ -116,7 +116,7 @@
                 <h4 class="text-light mb-4">Dashboard</h4>
                 <a class="nav-link" href="{{ route('jobs.index') }}">View Jobs</a>
                 <a class="nav-link" href="{{ route('jobs.create') }}">Create Job</a>
-                <a class="nav-link" href="">View Applications</a>
+                <a class="nav-link" href="{{route('applications.index')}}">View Applications</a>
             </div>
 
             <div class="mt-auto pt-4">

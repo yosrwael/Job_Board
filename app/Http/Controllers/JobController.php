@@ -55,7 +55,7 @@ class JobController extends Controller
     /**
      * Display the specified resource.
      */
-    
+
     public function show(JobListing $job)
     {
         $this->authorize('view', $job);
@@ -70,7 +70,7 @@ class JobController extends Controller
     {
         $categories = Category::all();
         $this->authorize('update', $job);
-        return view('jobs.edit', compact('job','categories'));
+        return view('jobs.edit', compact('job', 'categories'));
     }
 
     /**
@@ -92,7 +92,7 @@ class JobController extends Controller
     {
         $this->authorize('delete', $job);
         $job->delete();
-        return redirect()->route('jobs.index')->with('success', 'Job deleted successfully');
+        return back()->with('success', 'Job deleted successfully');
     }
 
     public function applications(JobListing $job)
@@ -107,18 +107,16 @@ class JobController extends Controller
     /**
      * Update application status.
      */
-    public function updateApplicationStatus(Application $application, Request $request, JobListing $job)
+
+    public function accept(Application $application)
     {
-        $this->authorize('reviewApplications', $job);
+        $application->update(['status' => 'accepted']);
+        return back()->with('success', 'Application accepted.');
+    }
 
-        $request->validate([
-            'status' => 'required|in:pending,accepted,rejected',
-        ]);
-
-        $application->update([
-            'status' => $request->status,
-        ]);
-        
-        return back()->with('success', 'Application status updated.');
+    public function reject(Application $application)
+    {
+        $application->update(['status' => 'rejected']);
+        return back()->with('success', 'Application rejected.');
     }
 }

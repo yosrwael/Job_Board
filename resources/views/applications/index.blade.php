@@ -110,12 +110,13 @@
 
 <body>
     <div class="d-flex">
+        <!-- Sidebar -->
         <nav class="sidebar d-flex flex-column justify-content-between">
             <div>
                 <h4 class="text-light mb-4">Dashboard</h4>
                 <a class="nav-link" href="{{ route('jobs.index') }}">View Jobs</a>
                 <a class="nav-link" href="{{ route('jobs.create') }}">Create Job</a>
-                <a class="nav-link" href="">View Applications</a>
+                <a class="nav-link" href="{{route('applications.index')}}">View Applications</a>
             </div>
 
             <div class="mt-auto pt-4">
@@ -157,10 +158,10 @@
                 <thead class="table-custom">
                     <tr>
                         <th>#</th>
-                        <th>Job Title</th>
                         <th>Username</th>
+                        <th>Job Title</th>
                         <th>Resume</th>
-                        <th>status</th>
+                        <th>Status</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -168,8 +169,8 @@
                     @foreach ($applications as $application)
                     <tr>
                         <td>{{ $application->id }}</td>
-                        <td>{{ $job->title }}</td>
                         <td>{{ $application->user->name }}</td>
+                        <td>{{ $application->job->title }}</td>
                         <td>
                             @if($application->getFirstMediaUrl('resumes'))
                             <a href="{{ $application->getFirstMediaUrl('resumes') }}" target="_blank">View PDF</a>
@@ -198,8 +199,7 @@
                     </tr>
                     @endforeach
                 </tbody>
-
-
+                
             </table>
 
             <div class="mt-4 d-flex justify-content-center">
