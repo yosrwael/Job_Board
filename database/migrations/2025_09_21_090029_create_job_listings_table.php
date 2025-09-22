@@ -14,18 +14,17 @@ return new class extends Migration
         Schema::create('job_listings', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();   
             $table->string('title');
             $table->text('description');
             $table->text('responsibilities')->nullable();
-            $table->string('skills')->nullable();
-            $table->string('qualifications')->nullable();
+            $table->text('skills')->nullable();
+            $table->text('qualifications')->nullable();
+            $table->text('benefits')->nullable();
             $table->string('salary')->nullable();
-            $table->string('benefits')->nullable();
             $table->string('location');
             $table->enum('work_type', ['remote', 'on-site', 'hybrid'])->default('on-site');
             $table->date('deadline')->nullable();
-            $table->string('company_logo')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamps();
         });

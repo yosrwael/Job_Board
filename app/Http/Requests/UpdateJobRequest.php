@@ -22,11 +22,19 @@ class UpdateJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string|min:3|max:50',
-            'email' => 'sometimes|email|unique:users,email',
-            'password' => 'sometimes|string|min:8',
-            'company_name' =>'sometimes|string',
-            'company_logo' =>'sometimes|image|max:2048',
-        ]; 
+            'title' => 'sometimes|string|max:255',
+            'description' => 'sometimes|string',
+            'responsibilities' => 'nullable|string',
+            'skills' => 'nullable|string',
+            'qualifications' => 'nullable|string',
+            'salary' => 'nullable|string',
+            'benefits' => 'nullable|string',
+            'location' => 'sometimes|string',
+            'work_type' => 'sometimes|in:on-site,remote,hybrid',
+            'deadline' => 'nullable|date',
+            'company_logo' => 'nullable|image|max:2048',
+            'category_id' => 'nullable|exists:categories,id',
+            'status' => 'sometimes|in:pending,accepted,rejected',
+        ];
     }
 }

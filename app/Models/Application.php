@@ -14,6 +14,8 @@ class Application extends Model implements HasMedia
     use Notifiable;
     use InteractsWithMedia;
 
+    public const MEDIA_COLLECTION_RESUMES= 'resumes';
+
     protected $fillable=[
         'job_listing_id',
         'user_id',

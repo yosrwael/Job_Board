@@ -22,11 +22,20 @@ class StoreJobRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:50',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'company_name' =>'nullable|string',
-            'company_logo' =>'nullable|image|max:2048',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'responsibilities' => 'required|string',
+            'skills' => 'required|string',
+            'qualifications' => 'required|string',
+            'salary' => 'required|string',
+            'benefits' => 'required|string',
+            'location' => 'required|string',
+            'work_type' => 'required|in:on-site,remote,hybrid',
+            'deadline' => 'required|date',
+            'company_logo' => 'nullable|image|max:2048',
+            'category_id' => 'nullable|exists:categories,id',
+            'status' => 'required|in:pending,accepted,rejected',
+            
         ];
     }
 }

@@ -14,8 +14,28 @@ class JobListing extends Model implements HasMedia
     use HasFactory;
     use Notifiable;
     use InteractsWithMedia;
+
+    public const MEDIA_COLLECTION_IMAGES = 'logos';
     
-    protected $guarded=['id'];
+    protected $fillable = [
+        'user_id',
+        'category_id',
+        'title',
+        'description',
+        'responsibilities',
+        'skills',
+        'qualifications',
+        'salary',
+        'benefits',
+        'location',
+        'work_type',
+        'deadline',
+        'status',
+    ];
+
+    protected $casts = [
+        'deadline' => 'date',
+    ];
 
     public function applications(){
         return $this->hasMany(Application::class,'job_listing_id');
