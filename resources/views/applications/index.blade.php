@@ -115,7 +115,9 @@
             <div>
                 <h4 class="text-light mb-4">Dashboard</h4>
                 <a class="nav-link" href="{{ route('jobs.index') }}">View Jobs</a>
+                @role('employer|admin')
                 <a class="nav-link" href="{{ route('jobs.create') }}">Create Job</a>
+                @endrole
                 <a class="nav-link" href="{{route('applications.index')}}">View Applications</a>
             </div>
 
@@ -187,6 +189,7 @@
                             </span>
                         </td>
                         <td class="p-2 d-flex justify-content-center gap-2">
+                            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('employer'))
                             <form action="{{ route('applications.accept', $application) }}" method="POST" style="display:inline-block">
                                 @csrf
                                 <button class="btn btn-success">Accept</button>
@@ -195,11 +198,19 @@
                                 @csrf
                                 <button class="btn btn-danger">Reject</button>
                             </form>
+                            @elseif(Auth::user()->hasRole('candidate'))
+                            <form action="{{ route('applications.destroy', $application) }}" method="POST" style="display:inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-secondary">Cancel</button>
+                            </form>
+                            @endif
                         </td>
+
                     </tr>
                     @endforeach
                 </tbody>
-                
+
             </table>
 
             <div class="mt-4 d-flex justify-content-center">

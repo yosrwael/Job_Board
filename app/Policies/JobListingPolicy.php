@@ -11,17 +11,17 @@ class JobListingPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(User $user)
     {
-        return  $user->hasRole('employer') || $user->hasRole('admin');
+        //
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, JobListing $job): bool
+    public function view(User $user, JobListing $job)
     {
-        return $user->id === $job->user_id || $user->hasRole('admin');
+       //
     }
 
     /**

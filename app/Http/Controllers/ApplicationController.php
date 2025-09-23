@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobListing;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ApplicationController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -34,17 +37,33 @@ class ApplicationController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(JobListing $job)
     {
-        //
+        return view('applications.create', compact('job'));
     }
+
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, JobListing $job)
     {
-        //
+        $request->validate([
+            'resume' => 'required|mimes:pdf,doc,docx|max:2048',
+        ]);
+
+        $application = Application::create([
+            'job_listing_id' => $job->id,
+            'user_id' => Auth::id(),
+        ]);
+
+        if ($request->hasFile('resume')) {
+            $application->addMedia($request->file('resume'))
+                ->toMediaCollection(Application::MEDIA_COLLECTION_RESUMES);
+        }
+
+        return redirect()->route('jobs.show', $job->id)->with('success', 'Application submitted successfully!');
     }
 
     /**
@@ -74,8 +93,13 @@ class ApplicationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+
+    public function destroy(Application $application)
     {
-        //
+        $this->authorize('delete', $application);
+
+        $application->delete();
+
+        return back()->with('success', 'Application cancelled successfully');
     }
 }

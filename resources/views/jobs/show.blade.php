@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,13 +39,16 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="header-title">Job Details</h2>
             <div>
                 <a href="{{ route('jobs.index') }}" class="btn btn-secondary">← Back</a>
+                @role('admin|employer')
                 <a href="{{ route('jobs.applications', $job->id) }}" class="btn btn-custom">View Applications</a>
+                @endrole
             </div>
         </div>
 
@@ -118,6 +122,9 @@
                 </tr>
             </tbody>
         </table>
+
     </div>
+     
 </body>
+
 </html>

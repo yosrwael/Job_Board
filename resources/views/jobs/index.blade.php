@@ -115,7 +115,9 @@
             <div>
                 <h4 class="text-light mb-4">Dashboard</h4>
                 <a class="nav-link" href="{{ route('jobs.index') }}">View Jobs</a>
+                @role('employer|admin')
                 <a class="nav-link" href="{{ route('jobs.create') }}">Create Job</a>
+                @endrole
                 <a class="nav-link" href="{{route('applications.index')}}">View Applications</a>
             </div>
 
@@ -151,7 +153,11 @@
         <section class="content w-100">
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="header-title">Job Listings</h2>
+                @role('admin|employer')
                 <a href="{{ route('jobs.create') }}" class="btn btn-custom">+ New Job</a>
+                @else
+                 @include('jobs.search')
+                @endrole
             </div>
 
             <table class="table table-hover mt-3">
@@ -175,12 +181,16 @@
                         <td>{{ $job->deadline?->format('Y-m-d') }}</td>
                         <td class="p-2 d-flex justify-content-around">
                             <a href="{{ route('jobs.show', $job) }}" class="btn btn-sm btn-ctm text-white">View Details</a>
+                            @if (Auth::user()->hasRole('candidate'))
+                            <a href="{{ route('applications.create', $job->id) }}" class="btn btn-sm btn-primary">Apply Now</a>
+                            @else
                             <a href="{{ route('jobs.edit', $job) }}" class="btn btn-sm btn-custom">Update</a>
                             <form action="{{ route('jobs.destroy', $job) }}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                     @endforeach

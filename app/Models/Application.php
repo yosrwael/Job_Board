@@ -20,7 +20,6 @@ class Application extends Model implements HasMedia
         'job_listing_id',
         'user_id',
         'resume',
-        'status'
     ];
 
     public function job(){

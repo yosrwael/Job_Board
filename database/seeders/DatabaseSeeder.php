@@ -18,11 +18,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             RolesAndPermissionsSeeder::class,
-            AdminUserSeeder::class,
         );
         $this->call([
             JobListingSeeder::class,
             ApplicationSeeder::class,
+            RolesAndAdminSeeder::class,
         ]);
     }
 }

@@ -21,10 +21,8 @@ class JobController extends Controller
      */
     public function index()
     {
-        $this->authorize('viewAny', JobListing::class);
-
         $user = Auth::user();
-        if ($user && $user->hasRole('admin')) {
+        if ($user && $user->hasRole('admin') ||$user->hasRole('candidate') ) {
             $jobs = JobListing::paginate(10);
         } else {
             $jobs = JobListing::where('user_id', $user->id)->paginate(10);
@@ -58,8 +56,6 @@ class JobController extends Controller
 
     public function show(JobListing $job)
     {
-        $this->authorize('view', $job);
-
         return view('jobs.show', compact('job'));
     }
 

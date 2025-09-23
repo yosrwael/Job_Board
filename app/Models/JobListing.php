@@ -16,7 +16,7 @@ class JobListing extends Model implements HasMedia
     use InteractsWithMedia;
 
     public const MEDIA_COLLECTION_IMAGES = 'logos';
-    
+
     protected $fillable = [
         'user_id',
         'category_id',
@@ -37,11 +37,19 @@ class JobListing extends Model implements HasMedia
         'deadline' => 'date',
     ];
 
-    public function applications(){
-        return $this->hasMany(Application::class,'job_listing_id');
+    public function scopeDatePosted($query, $days)
+    {
+        return $query->where('created_at', '>=', now()->subDays($days));
     }
 
-    public function category(){
+
+    public function applications()
+    {
+        return $this->hasMany(Application::class, 'job_listing_id');
+    }
+
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
@@ -49,5 +57,4 @@ class JobListing extends Model implements HasMedia
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-
 }
