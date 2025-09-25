@@ -163,6 +163,7 @@
                         <th>#</th>
                         <th>Job Title</th>
                         <th>Username</th>
+                        <th>Phone</th>
                         <th>Resume</th>
                         <th>status</th>
                         <th class="text-center">Actions</th>
@@ -174,6 +175,7 @@
                         <td>{{ $application->id }}</td>
                         <td>{{ $job->title }}</td>
                         <td>{{ $application->user->name }}</td>
+                        <td>{{ $application->user->phone }}</td>
                         <td>
                             @if($application->getFirstMediaUrl('resumes'))
                             <a href="{{ $application->getFirstMediaUrl('resumes') }}" target="_blank">View PDF</a>

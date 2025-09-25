@@ -10,11 +10,6 @@ use App\Models\Category;
 
 class CandidateController extends Controller
 {
-    
-    public function apply() {
-
-    }
-
 
     public function search(Request $request)
     {

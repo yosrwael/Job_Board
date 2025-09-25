@@ -119,6 +119,9 @@
                 <a class="nav-link" href="{{ route('jobs.create') }}">Create Job</a>
                 @endrole
                 <a class="nav-link" href="{{route('applications.index')}}">View Applications</a>
+                @role('admin')
+                <a class="nav-link" href="{{route('users.index')}}">Users</a>
+                @endrole
             </div>
 
             <div class="mt-auto pt-4">

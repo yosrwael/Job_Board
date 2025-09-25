@@ -37,6 +37,15 @@
                 required />
         </div>
 
+        <div class="mt-4">
+            <x-input-label for="phone" :value="__('Phone')" />
+            <x-text-input id="phone" class="block mt-1 w-full"
+                type="text"
+                name="phone"
+                :value="old('phone')"
+                required />
+        </div>
+
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />

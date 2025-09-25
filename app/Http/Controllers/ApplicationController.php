@@ -78,17 +78,27 @@ class ApplicationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Application $application)
     {
-        //
+        return view('applications.edit', compact('application'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Application $application)
     {
-        //
+
+        $request->validate([
+            'resume' => 'nullable|mimes:pdf,doc,docx|max:2048',
+        ]);
+        if ($request->hasFile('resume')) {
+            $application->clearMediaCollection('resumes');
+            $application->addMediaFromRequest('resume')->toMediaCollection('resumes');
+        }
+        $application->save();
+        return redirect()->route('applications.index')
+            ->with('success', 'Your application has been updated successfully!');
     }
 
     /**

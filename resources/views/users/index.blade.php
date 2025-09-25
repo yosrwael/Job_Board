@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Applications</title>
+    <title>Users</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
@@ -155,7 +155,7 @@
 
         <section class="content w-100">
             <div class="d-flex justify-content-between align-items-center">
-                <h2 class="header-title">Applicatios</h2>
+                <h2 class="header-title">Users</h2>
             </div>
             @if (session()->get('success'))
             <h6 class="alert alert-success p-3">{{ session()->get('success') }}</h6>
@@ -165,64 +165,35 @@
                 <thead class="table-custom">
                     <tr>
                         <th>#</th>
-                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Email</th>
                         <th>Phone</th>
-                        <th>Job Title</th>
-                        <th>Resume</th>
-                        <th>Status</th>
+                        <th>Role</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($applications as $application)
+                    @foreach ($users as $user)
                     <tr>
-                        <td>{{ $application->id }}</td>
-                        <td>{{ $application->user->name }}</td>
-                        <td>{{ $application->user->phone }}</td>
-                        <td>{{ $application->job->title }}</td>
-                        <td>
-                            @if($application->getFirstMediaUrl('resumes'))
-                            <a href="{{ $application->getFirstMediaUrl('resumes') }}" target="_blank">View PDF</a>
-                            @else
-                            No Resume
-                            @endif
-                        </td>
-                        <td>
-                            <span class="badge 
-                            @if($application->status == 'pending') bg-secondary 
-                            @elseif($application->status == 'accepted') bg-success 
-                            @else bg-danger @endif">
-                                {{ $application->status }}
-                            </span>
-                        </td>
-                        <td class="p-2 d-flex justify-content-center gap-2">
-                            @if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('employer'))
-                            <form action="{{ route('applications.accept', $application) }}" method="POST" style="display:inline-block">
-                                @csrf
-                                <button class="btn btn-success">Accept</button>
-                            </form>
-                            <form action="{{ route('applications.reject', $application) }}" method="POST" style="display:inline-block">
-                                @csrf
-                                <button class="btn btn-danger">Reject</button>
-                            </form>
-                            @elseif(Auth::user()->hasRole('candidate'))
-                            <a href="{{ route('applications.edit', $application->id) }}" class="btn btn-sm btn-custom">Update CV</a>
-                            <form action="{{ route('applications.destroy', $application) }}" method="POST" style="display:inline-block">
+                        <td>{{ $user->id }}</td>
+                        <td>{{ $user->name}}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->Phone }}</td>
+                        <td>{{ $user->getRoleNames()->first() }}</td>
+                        <td class="p-2 d-flex justify-content-around">
+                            <form action="{{ route('users.destroy', $user) }}" method="POST" style="display:inline-block">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-sm btn-secondary">Cancel</button>
+                                <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                             </form>
-                            @endif
                         </td>
-
                     </tr>
                     @endforeach
                 </tbody>
-
             </table>
 
             <div class="mt-4 d-flex justify-content-center">
-                {{ $applications->links() }}
+                {{ $users->links() }}
             </div>
         </section>
     </div>
