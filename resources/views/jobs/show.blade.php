@@ -59,6 +59,10 @@
                     <td>{{ $job->id }}</td>
                 </tr>
                 <tr>
+                    <th>Company_name</th>
+                    <td>{{ $job->employer->company_name}}</td>
+                </tr>
+                <tr>
                     <th>Company_logo</th>
                     <td>
                         <img src="{{ $job->getFirstMediaUrl('logos') }}" width="70" alt="logo">

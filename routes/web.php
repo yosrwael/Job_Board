@@ -32,11 +32,20 @@ Route::middleware(['auth', 'role:employer|admin|candidate'])->group(function () 
     Route::post('/applications/{application}/reject', [JobController::class, 'reject'])->name('applications.reject');
 });
 
-Route::resource('applications', ApplicationController::class)->middleware('role:admin|employer|candidate');
+Route::get('/applications', [ApplicationController::class, 'index'])
+    ->name('applications.index')
+    ->middleware(['auth','role:admin|employer|candidate']);
+
+Route::delete('/applications/{application}', [ApplicationController::class, 'destroy'])
+    ->name('applications.destroy')
+    ->middleware(['auth','role:candidate']);
+
+
 
 Route::get('/candidate/jobs/search', [CandidateController::class, 'search'])->name('candidate.jobs.search')->middleware(['auth', 'role:candidate']);
 
 Route::middleware(['auth', 'role:candidate'])->group(function () {
-    Route::get('/applications/create/{job}', [ApplicationController::class, 'create'])->name('applications.create');
-    Route::post('/applications/store/{job}', [ApplicationController::class, 'store'])->name('applications.store');
+    Route::get('/jobs/{job}/apply', [ApplicationController::class, 'create'])->name('applications.create');
+    Route::post('/jobs/{job}/apply', [ApplicationController::class, 'store'])->name('applications.store');
 });
+

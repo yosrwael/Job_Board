@@ -156,9 +156,12 @@
                 @role('admin|employer')
                 <a href="{{ route('jobs.create') }}" class="btn btn-custom">+ New Job</a>
                 @else
-                 @include('jobs.search')
+                @include('jobs.search')
                 @endrole
             </div>
+            @if (session()->get('success'))
+            <h6 class="alert alert-success p-3">{{ session()->get('success') }}</h6>
+            @endif
 
             <table class="table table-hover mt-3">
                 <thead class="table-custom">

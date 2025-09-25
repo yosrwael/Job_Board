@@ -56,15 +56,16 @@ class ApplicationController extends Controller
         $application = Application::create([
             'job_listing_id' => $job->id,
             'user_id' => Auth::id(),
+            'cover_letter' => $request->input('cover_letter'),
         ]);
 
         if ($request->hasFile('resume')) {
-            $application->addMedia($request->file('resume'))
-                ->toMediaCollection(Application::MEDIA_COLLECTION_RESUMES);
+            $application->addMediaFromRequest('resume')->toMediaCollection('resumes');
         }
 
-        return redirect()->route('jobs.show', $job->id)->with('success', 'Application submitted successfully!');
+        return redirect()->route('jobs.index')->with('success', 'Your application has been submitted successfully!');
     }
+
 
     /**
      * Display the specified resource.

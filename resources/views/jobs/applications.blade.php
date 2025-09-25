@@ -153,6 +153,10 @@
                 <a href="{{ route('jobs.index') }}" class="btn btn-secondary">← Back</a>
             </div>
 
+            @if (session()->get('success'))
+            <h6 class="alert alert-success p-3">{{ session()->get('success') }}</h6>
+            @endif
+
             <table class="table table-hover mt-3">
                 <thead class="table-custom">
                     <tr>

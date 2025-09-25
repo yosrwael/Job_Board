@@ -33,6 +33,16 @@
     @csrf
 
     <div class="mb-3">
+        <label for="company_name" class="form-label">Company Name</label>
+        <input type="text" class="form-control" id="company_name" name="company_name">
+    </div>
+
+    <div class="mb-3">
+        <label for="company_logo" class="form-label">Company Logo</label>
+        <input type="file" class="form-control" id="company_logo" name="company_logo">
+    </div>
+
+    <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input type="text" class="form-control" id="title" name="title" required>
     </div>
@@ -86,10 +96,6 @@
         <input type="date" class="form-control" id="deadline" name="deadline">
     </div>
 
-    <div class="mb-3">
-        <label for="company_logo" class="form-label">Company Logo</label>
-        <input type="file" class="form-control" id="company_logo" name="company_logo">
-    </div>
 
     <input type="hidden" name="status" value="pending">
 
