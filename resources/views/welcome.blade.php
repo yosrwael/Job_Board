@@ -8,11 +8,10 @@
 
     <title>{{ config('app.name') }}</title>
 
-    <!-- Fonts -->
+
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700,800&display=swap" rel="stylesheet" />
 
-    <!-- Styles -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/welcome.css') }}">
@@ -33,7 +32,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Features</a>
+                        <!-- <a class="nav-link" href="#features">Features</a> -->
                     </li>
                 </ul>
                 <div class="ms-3">
@@ -54,15 +53,14 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 x">
                     <div class="hero-content">
-                        <h2 class="animate-fade-in-up ">
+                        <h2  >
                             Find your <span class="highlight">Job</span>
                         </h2>
-                        <p class="subtitle animate-fade-in-up animate-delay-1">
+                        <p class="subtitle ">
                             Connect with top employers and discover meaningful career opportunities that match your skills and passion.
                         </p>
 
-                        <!-- Search Bar -->
-                        <div class="search-bar animate-fade-in-up animate-delay-2">
+                        <!-- <div class="search-bar animate-fade-in-up animate-delay-2">
                             <div class="row g-0 align-items-center">
                                 <div class="col">
                                     <input type="text" class="form-control" placeholder="Search for jobs, companies, or keywords..." />
@@ -74,10 +72,9 @@
                                     </a>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
-                        <!-- Hero Buttons -->
-                        <div class="hero-buttons animate-fade-in-up animate-delay-3">
+                        <div class="hero-buttons">
                             <a href="{{ route('register') }}" class="btn-hero btn-primary-hero">
                                 <i class="fas fa-rocket"></i> Get Started
                             </a>
@@ -100,14 +97,14 @@
         <div class="container">
             <div class="row justify-content-center text-center mb-5">
                 <div class="col-lg-8">
-                    <h2 class="display-5 fw-bold mb-3">Everything You Need, Simplified</h2>
+                    <h2 class="display-5 fw-bold mb-3">Features</h2>
                     <p class="lead text-muted">A platform designed for both job seekers and employers with intuitive tools and seamless experience.</p>
                 </div>
             </div>
 
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="feature-card animate-fade-in-up">
+                    <div class="feature-card ">
                         <div class="feature-icon">
                             <i class="fas fa-search"></i>
                         </div>
@@ -117,7 +114,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="feature-card animate-fade-in-up animate-delay-1">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-briefcase"></i>
                         </div>
@@ -127,7 +124,7 @@
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <div class="feature-card animate-fade-in-up animate-delay-2">
+                    <div class="feature-card ">
                         <div class="feature-icon">
                             <i class="fas fa-building"></i>
                         </div>
@@ -189,12 +186,7 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.querySelector('.navbar-toggler').addEventListener('click', function() {
-            const navCollapse = document.querySelector('#navbarNav');
-            navCollapse.classList.toggle('show');
-        });
-    </script>
+    
 </body>
 
 </html>

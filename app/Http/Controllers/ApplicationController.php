@@ -6,6 +6,7 @@ use App\Models\JobListing;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\NewApplicationNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ApplicationController extends Controller
@@ -62,6 +63,9 @@ class ApplicationController extends Controller
         if ($request->hasFile('resume')) {
             $application->addMediaFromRequest('resume')->toMediaCollection('resumes');
         }
+        
+        $employer = $job->employer;
+        $employer->notify(new NewApplicationNotification($application));
 
         return redirect()->route('jobs.index')->with('success', 'Your application has been submitted successfully!');
     }
@@ -88,7 +92,6 @@ class ApplicationController extends Controller
      */
     public function update(Request $request, Application $application)
     {
-
         $request->validate([
             'resume' => 'nullable|mimes:pdf,doc,docx|max:2048',
         ]);

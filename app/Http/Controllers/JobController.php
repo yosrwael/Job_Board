@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\StoreJobAction;
-use App\Actions\UpdateJobAction;
-use App\Http\Requests\StoreJobRequest;
-use App\Http\Requests\UpdateJobRequest;
+use App\Models\Category;
 use App\Models\JobListing;
 use App\Models\Application;
-use App\Models\Category;
 use Illuminate\Http\Request;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Actions\StoreJobAction;
+use App\Actions\UpdateJobAction;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreJobRequest;
+use App\Http\Requests\UpdateJobRequest;
+use App\Notifications\ApplicationAcceptedNotification;
+use App\Notifications\ApplicationRejectedNotification;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class JobController extends Controller
 {
@@ -22,7 +24,7 @@ class JobController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user && $user->hasRole('admin') ||$user->hasRole('candidate') ) {
+        if ($user && $user->hasRole('admin') || $user->hasRole('candidate')) {
             $jobs = JobListing::paginate(10);
         } else {
             $jobs = JobListing::where('user_id', $user->id)->paginate(10);
@@ -107,12 +109,16 @@ class JobController extends Controller
     public function accept(Application $application)
     {
         $application->update(['status' => 'accepted']);
+        $candidate = $application->user;
+        $candidate->notify(new ApplicationAcceptedNotification($application));
         return back()->with('success', 'Application accepted.');
     }
 
     public function reject(Application $application)
     {
         $application->update(['status' => 'rejected']);
+        $candidate = $application->user;
+        $candidate->notify(new ApplicationRejectedNotification($application));
         return back()->with('success', 'Application rejected.');
     }
 }
