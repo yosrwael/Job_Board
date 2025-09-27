@@ -17,7 +17,7 @@ class ApplicationSeeder extends Seeder
         Application::factory()->count(10)->create()->each(function ($application) {
 
             $application->addMedia(
-                UploadedFile::fake()->create('resume.pdf', 100) // حجم 100 KB
+                UploadedFile::fake()->create('resume.pdf', 100) 
             )->toMediaCollection(Application::MEDIA_COLLECTION_RESUMES);
         });
     }

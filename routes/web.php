@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\NotificationController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -31,8 +32,8 @@ require __DIR__ . '/auth.php';
 Route::middleware(['auth', 'role:employer|admin|candidate'])->group(function () {
     Route::resource('/jobs', JobController::class);
     Route::get('/jobs/{job}/applications', [JobController::class, 'applications'])->name('jobs.applications');
-    Route::post('/applications/{application}/accept', [JobController::class, 'accept'])->name('applications.accept');
-    Route::post('/applications/{application}/reject', [JobController::class, 'reject'])->name('applications.reject');
+    Route::post('/applications/{application}/accept',[ApplicationController::class, 'accept'])->name('applications.accept');
+    Route::post('/applications/{application}/reject', [ApplicationController::class, 'reject'])->name('applications.reject');
 });
 
 Route::get('/applications', [ApplicationController::class, 'index'])
@@ -50,11 +51,22 @@ Route::middleware(['auth', 'role:candidate'])->group(function () {
 
 Route::get('/candidate/jobs/search', [CandidateController::class, 'search'])->name('candidate.jobs.search')->middleware(['auth', 'role:candidate']);
 
-Route::get('users', [AdminController::class, 'users'])->name('users.index')->middleware(['auth', 'role:admin']);
-Route::delete('users/{user}', [AdminController::class, 'destroy'])->name('users.destroy')->middleware(['auth', 'role:admin']);
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/users', [AdminController::class, 'users'])->name('users.index');
+    Route::post('/users', [AdminController::class, 'store'])->name('users.store');
+    Route::delete('/users/{user}', [AdminController::class, 'destroy'])->name('users.destroy');
+    Route::view('/users/create', 'users.create')->name('users.create');
+});
 
-Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])
+
+Route::get('/notifications', [NotificationController::class, 'index'])
     ->name('notifications.index')
     ->middleware('auth');
 
-Route::resource('categories', CategoryController::class)->middleware(['auth', 'role:admin']);
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::post('/jobs/{job}/approve', [JobController::class, 'approve'])->name('jobs.approve');
+    Route::post('/jobs/{job}/reject', [JobController::class, 'reject'])->name('jobs.reject');
+    Route::resource('categories', CategoryController::class);
+});
+

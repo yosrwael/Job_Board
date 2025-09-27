@@ -7,6 +7,8 @@ use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Notifications\NewApplicationNotification;
+use App\Notifications\ApplicationAcceptedNotification;
+use App\Notifications\ApplicationRejectedNotification;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ApplicationController extends Controller
@@ -57,7 +59,6 @@ class ApplicationController extends Controller
         $application = Application::create([
             'job_listing_id' => $job->id,
             'user_id' => Auth::id(),
-            'cover_letter' => $request->input('cover_letter'),
         ]);
 
         if ($request->hasFile('resume')) {
@@ -115,5 +116,21 @@ class ApplicationController extends Controller
         $application->delete();
 
         return back()->with('success', 'Application cancelled successfully');
+    }
+
+    public function accept(Application $application)
+    {
+        $application->update(['status' => 'accepted']);
+        $candidate = $application->user;
+        $candidate->notify(new ApplicationAcceptedNotification($application));
+        return back()->with('success', 'Application accepted.');
+    }
+
+    public function reject(Application $application)
+    {
+        $application->update(['status' => 'rejected']);
+        $candidate = $application->user;
+        $candidate->notify(new ApplicationRejectedNotification($application));
+        return back()->with('success', 'Application rejected.');
     }
 }

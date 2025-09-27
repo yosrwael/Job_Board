@@ -34,7 +34,6 @@ class StoreJobRequest extends FormRequest
             'deadline' => 'required|date',
             'company_logo' => 'nullable|image|max:2048',
             'category_id' => 'nullable|exists:categories,id',
-            'status' => 'required|in:pending,accepted,rejected',
             
         ];
     }

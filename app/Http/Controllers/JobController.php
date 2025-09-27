@@ -24,11 +24,14 @@ class JobController extends Controller
     public function index()
     {
         $user = Auth::user();
-        if ($user && $user->hasRole('admin') || $user->hasRole('candidate')) {
+        if ($user->hasRole('admin')) {
             $jobs = JobListing::paginate(10);
+        } elseif ($user->hasRole('candidate')) {
+            $jobs = JobListing::where('status', 'accepted')->paginate(10);
         } else {
             $jobs = JobListing::where('user_id', $user->id)->paginate(10);
         }
+
         return view('jobs.index', compact('jobs'));
     }
 
@@ -106,19 +109,15 @@ class JobController extends Controller
      * Update application status.
      */
 
-    public function accept(Application $application)
+    public function approve(JobListing $job)
     {
-        $application->update(['status' => 'accepted']);
-        $candidate = $application->user;
-        $candidate->notify(new ApplicationAcceptedNotification($application));
-        return back()->with('success', 'Application accepted.');
+        $job->update(['status' => 'accepted']);
+        return back()->with('success', 'Job approved successfully.');
     }
 
-    public function reject(Application $application)
+    public function reject(JobListing $job)
     {
-        $application->update(['status' => 'rejected']);
-        $candidate = $application->user;
-        $candidate->notify(new ApplicationRejectedNotification($application));
-        return back()->with('success', 'Application rejected.');
+        $job->update(['status' => 'rejected']);
+        return back()->with('error', 'Job rejected.');
     }
 }

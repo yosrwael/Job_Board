@@ -35,6 +35,7 @@
                 <td>{{ $job->deadline?->format('Y-m-d') }}</td>
                 <td class="p-2 d-flex justify-content-around">
                     <a href="{{ route('jobs.show', $job) }}" class="btn btn-sm btn-ctm text-white">View Details</a>
+
                     @if (Auth::user()->hasRole('candidate'))
                     <a href="{{ route('applications.create', $job->id) }}" class="btn btn-sm btn-primary">Apply Now</a>
                     @else
@@ -45,7 +46,21 @@
                         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
                     </form>
                     @endif
+
+                    @role('admin')
+                    @if($job->status === 'pending')
+                    <form action="{{ route('jobs.approve', $job) }}" method="POST" style="display:inline-block">
+                        @csrf
+                        <button class="btn btn-sm btn-success">Approve</button>
+                    </form>
+                    <form action="{{ route('jobs.reject', $job) }}" method="POST" style="display:inline-block">
+                        @csrf
+                        <button class="btn btn-sm btn-secondary">Reject</button>
+                    </form>
+                    @endif
+                    @endrole
                 </td>
+
             </tr>
             @endforeach
         </tbody>
