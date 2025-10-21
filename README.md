@@ -12,26 +12,25 @@ The **Laravel Job Board** project is a web-based application that connects **emp
 - Create and post detailed job listings (title, description, qualifications, salary, etc.).  
 - Edit or delete job postings.  
 - Review applications and accept/reject candidates.  
-- Upload company logo or branding.  
+- Upload company logo via **Spatie Media Library**.  
 
 ###  Candidates
 - Register and manage a personal account.  
-- Create and update their profile and resume.  
+- Upload resumes using **Spatie Media Library**.  
 - Search and filter jobs using:
   - Keywords  
   - Location  
   - Category / Industry  
   - Salary Range  
-  - Experience Level  
-  - Date Posted  
-- Apply directly on the platform or contact employers.  
-- Manage applications (cancel, view status).  
-- Receive notifications about job updates (optional feature).  
 
-###  Administrators
+- Apply directly on the platform.  
+- Manage and cancel applications. 
+- Receive notifications about job updates .  
+
+###  Admins
 - Approve or reject job postings submitted by employers.  
 - Monitor user activities and platform statistics.  
-- Manage reported jobs or users.  
+- Manage jobs or users.  
 
 ---
 
@@ -44,42 +43,34 @@ Each job listing includes:
 - Job Type (Remote, On-site, Hybrid)  
 - Location  
 - Application Deadline  
-- Company Logo / Branding  
+- Company Logo 
+
+Employers can update or remove their listings anytime.  
+Admins must approve job posts before they go live.
 
 ---
 
 ##  Application Process
-Candidates can apply for jobs in multiple ways:
-1. Uploading their resume directly to the system.  
-2. Providing contact details (email or phone).  
-3. Filling out a custom in-app form (bonus).  
+Candidates can apply for jobs by uploading their resume directly to the system.  
+.    
 
 Employers can then:
 - View candidate applications.
-- Contact candidates directly through email or in-app messages.
 - Accept or reject applications.
 
 ---
-
-##  Job Search & Filtering
-Candidates can easily find jobs using:
--  Keyword-based search (title or description)
--  Location filter
--  Category / Industry filter
--  Salary range
-
-
 
 ## Tech Stack
 
 | Category | Technology |
 |-----------|-------------|
-| Backend | Laravel 10+ |
+| Backend | Laravel 12 |
 | Frontend | Blade Templates / Tailwind CSS |
 | Database | MySQL  |
 | Authentication | Laravel Breeze  |
 | Notifications | Laravel Notifications (Database) |
-| File Uploads | Laravel Storage (Public / S3) |
+| Media Management | **Spatie Media Library** |
+
 
 
 ---
