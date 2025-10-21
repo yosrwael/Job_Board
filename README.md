@@ -1,61 +1,92 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 💼 Laravel Job Board Platform
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+##  Overview
+The **Laravel Job Board** project is a web-based application that connects **employers** and **candidates** in an easy-to-use platform. Employers can post and manage job listings, while candidates can search, apply, and track job opportunities. Administrators oversee the platform by approving job posts and monitoring activities.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+##  Key Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+###  Employers
+- Register and manage an account.  
+- Create and post detailed job listings (title, description, qualifications, salary, etc.).  
+- Edit or delete job postings.  
+- Review applications and accept/reject candidates.  
+- Upload company logo or branding.  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+###  Candidates
+- Register and manage a personal account.  
+- Create and update their profile and resume.  
+- Search and filter jobs using:
+  - Keywords  
+  - Location  
+  - Category / Industry  
+  - Salary Range  
+  - Experience Level  
+  - Date Posted  
+- Apply directly on the platform or contact employers.  
+- Manage applications (cancel, view status).  
+- Receive notifications about job updates (optional feature).  
 
-## Learning Laravel
+###  Administrators
+- Approve or reject job postings submitted by employers.  
+- Monitor user activities and platform statistics.  
+- Manage reported jobs or users.  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+---
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+##  Job Listing Management
+Each job listing includes:
+- Job Title  
+- Description and Responsibilities  
+- Required Skills and Qualifications  
+- Salary Range and Benefits  
+- Job Type (Remote, On-site, Hybrid)  
+- Location  
+- Application Deadline  
+- Company Logo / Branding  
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+##  Application Process
+Candidates can apply for jobs in multiple ways:
+1. Uploading their resume directly to the system.  
+2. Providing contact details (email or phone).  
+3. Filling out a custom in-app form (bonus).  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Employers can then:
+- View candidate applications.
+- Contact candidates directly through email or in-app messages.
+- Accept or reject applications.
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+##  Job Search & Filtering
+Candidates can easily find jobs using:
+-  Keyword-based search (title or description)
+-  Location filter
+-  Category / Industry filter
+-  Salary range
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
+## Tech Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Category | Technology |
+|-----------|-------------|
+| Backend | Laravel 10+ |
+| Frontend | Blade Templates / Tailwind CSS |
+| Database | MySQL  |
+| Authentication | Laravel Breeze  |
+| Notifications | Laravel Notifications (Database) |
+| File Uploads | Laravel Storage (Public / S3) |
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## ⚙️ Installation
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 1️⃣ Clone the Repository
+```bash
+git clone https://github.com/your-username/job-board.git
+cd job-board
